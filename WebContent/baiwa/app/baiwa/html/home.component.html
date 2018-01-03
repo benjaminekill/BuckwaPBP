@@ -1,0 +1,323 @@
+<div class="row">
+	<div class="col-lg-6 col-lg-push-3 col-md-12">
+		<section class="box-typical">
+
+			<header class="box-typical-header-sm">
+
+
+
+				<div class="form-group row">
+					<label for="exampleSelect" class="col-sm-2 form-control-label">ปีการศึกษา</label>
+					<div class="col-sm-2">
+						<select id="SelectYearList" [(ngModel)]="currentAcademicYear" (ngModelChange)="changeRound()" class="form-control">
+							<option *ngFor="let a of profile.academicYearList " [value]="a.name" >{{a.name}}</option>
+						</select>
+					</div>
+
+					<label for="exampleSelect2" class="col-sm-2 form-control-label" *ngIf="evaluateRoundList">รอบ</label >      
+					<div class="col-sm-2" *ngIf="evaluateRoundList">
+						<select id="exampleSelect2" class="form-control"  [(ngModel)]="evaluateRoundValue"  (ngModelChange)="changeRound()" >
+								<option *ngFor="let item of evaluateRoundList;"  [value]="item.name"  >{{item.name}}</option>
+						</select>
+					</div>
+				</div>
+
+			</header>
+
+
+
+		</section>
+		<!--.box-typical-->
+		<section class="box-typical">
+			<header class="box-typical-header-sm">
+				คะแนนประจำปี
+
+			</header>
+			<div class="posts-slider">
+				<div class="slide">
+					<article class="post-announce">
+						<div id="KendoChart">
+
+						</div>
+
+						<div class="post-announce-date"></div>
+
+					</article>
+				</div>
+				<!--.slide-->
+
+			</div>
+			<!--.posts-slider-->
+		</section>
+		<!--.box-typical-->
+
+	</div>
+	<!--.col- -->
+
+	<div class="col-lg-3 col-lg-pull-6 col-md-6 col-sm-6">
+		<section class="box-typical">
+			<div class="profile-card">
+				<div class="profile-card-photo">
+					<img [src]="imageProfilePath" alt="" style="-webkit-border-radius: 5%; height: 100%;" />
+				</div>
+				<div class="profile-card-name">{{profile.thaiName}} {{profile.thaiSurname}}</div>
+				<div class="profile-card-status">สังกัด:{{profile.facultyDesc}}</div>
+				<div class="profile-card-location">ส่วนงาน:{{profile.departmentDesc}}</div>
+				<button type="button" data-toggle="modal" href="#" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false"
+					class="btn btn-rounded" style="max-width: 155px;" (click)="UpdateImage()">แก้ไขรูปประจำตัว</button>
+
+			</div>
+			<!--.profile-card-->
+
+			<div class="profile-statistic tbl">
+				<div class="tbl-row">
+					<button type="submit" (click)="recalculate()" class="btn btn-inline btn-success" style="margin-right:0px">คำนวณคะแนนให้เป็นปัจจุบัน</button>
+				</div>
+			</div>
+
+			<div class="profile-statistic tbl">
+				<div class="tbl-row">
+					<div class="tbl-cell">
+
+						<b>คะแนนรวมอนุมัติ</b>
+					</div>
+					<div class="tbl-cell">
+						<b>{{sumasix}}</b>
+
+					</div>
+				</div>
+			</div>
+
+			<ul class="profile-links-list">
+				<li class="nowrap">
+					<i class="font-icon font-icon-user"></i>
+					<b>ประเภท:</b> {{profile.employeeType}}
+				</li>
+				<li class="nowrap">
+					<i class="font-icon font-icon-chart-2"></i>
+					<b>เลขที่อัตรา:</b> {{profile.rateNo}}
+				</li>
+				<li class="nowrap">
+					<i class="font-icon font-icon-award"></i>
+					<b>ตำแหน่งงาน:</b> {{profile.academicRank}}
+				</li>
+				<li class="nowrap">
+					<i class="font-icon font-icon-learn"></i>
+					<b>วุฒิการศึกษา:</b> {{profile.maxEducation}}
+				</li>
+				<li class="nowrap">
+					<i class="font-icon font-icon-mail"></i>
+					<b>Email:</b>{{profile.email}}
+				</li>
+				<li class="divider"></li>
+				<li>
+
+				</li>
+			</ul>
+		</section>
+		<!--.box-typical-->
+
+
+	</div>
+	<!--.col- -->
+
+
+	<div class="col-lg-3 col-md-6 col-sm-6">
+
+		<section class="box-typical box-typical-dashboard panel panel-default">
+			<header class="box-typical-header-sm">Notifications</header>
+
+
+			<div class="friends-list stripped" *ngFor="let item of messageList; let i = index ">
+				<article class="friends-list-item" *ngIf="i < 7  ">
+					<div class="user-card-row" >
+						<div class="tbl-row">
+							<div class="tbl-cell">
+								<span *ngIf="item.statusMessage !='0' "><p class="user-card-row-name "><a href="#/notificationsDetail/{{item.topicId}}">{{item.createBy}}</a> <span class="label label-danger" style="float:right;">ยังไม่ได้อ่าน</span> </p> </span>
+								<!--<span *ngIf="item.statusMessage =='0' " ><p class="user-card-row-name "><a href="#/notificationsDetail/{{item.topicId}}">{{item.createBy}}</a> </p> </span>-->
+								<p  class="user-card-row-status"><a href="#/notificationsDetail/{{item.topicId}}">{{item.messageDetail | maxLength : 15 }}</a></p> 
+							</div>
+							
+
+						</div>
+					</div>
+				</article>
+				
+			</div>
+
+			<div class="see-all" *ngIf="messageList.length ">
+				<a href="#/notificationsList">See All </a>
+			</div>
+
+		</section>
+		<!--.box-typical-->
+
+
+	</div>
+	<!--.col- -->
+
+	<div class="col-xs-12">
+		<section class="box-typical">
+			<header class="box-typical-header"></header>
+			<div class="box-typical-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<th class="text-center">ประเภทภาระงาน</th>
+								<th class="text-center">คะแนนรวมรออนุมัติ (คะแนน)</th>
+								<th class="text-center">คะแนนรวมอนุมัติ(คะแนน)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of work; let i = index ">
+
+								<td>
+									{{i+1}}&nbsp;{{item.axisName}}
+								</td>
+								<td class="text-center">
+									{{item.axisValue2}}
+								</td>
+								<td class="text-center">
+									
+									{{item.axisValue }}
+								</td>
+
+							</tr>
+
+
+							<tr>
+								<td class="text-right">
+									<h5><b>รวม</b></h5>
+								</td>
+								<td class="text-center">
+									<h5><b>{{sumasix2 }}</b></h5>
+
+								</td>
+								<td class="text-center">
+									<h5><b>{{sumasix }}</b></h5>
+									
+
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--.box-typical-body-->
+		</section>
+		<!--.box-typical-->
+	</div>
+</div>
+
+
+
+<!-- 	//แยก -->
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">แก้ไขภาพประจำตัว</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+
+					<div class="col-md-12">
+
+						<div *ngIf="updateImg" class="row">
+							<div class="text-center">
+								<img [src]="imageProfilePath" alt="" style="width:400px;padding:10px;" />
+							</div>
+						</div>
+						<div ng-if="!updateImg" class="row" *ngFor="let item of uploader.queue; let i = index ">
+							<div class="col-md-12">
+								<div class="text-center">
+									
+									<img src="" imgPreview [image]="item?._file" style="width:300px;padding:10px;" />
+								</div>
+							</div>
+
+
+							<!--
+						<table class="table">
+							<thead>
+								<tr>
+									<th width="50%">ชื่อ</th>
+									<th>สถานะ</th>
+									<th>Progress</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let item of uploader.queue">
+									<td><strong>{{ item?.file?.name }}</strong></td>
+									<td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB
+
+									</td>
+									<td >
+										<img src="" imgPreview [image]="item?._file" />
+									</td>
+									<td class="text-center">
+										<span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+										<span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+										<span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+									</td>
+									<td nowrap>
+										<button type="button" class="btn btn-success btn-xs" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess || (item.file.type != 'image/png' && item.file.type !='image/jpeg') ">
+                            <span class="glyphicon glyphicon-upload"></span> 
+                        </button>
+										<button type="button" class="btn btn-warning btn-xs" (click)="item.cancel()" [disabled]="!item.isUploading">
+                            <span class="glyphicon glyphicon-ban-circle"></span> 
+                        </button>
+										<button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+                            <span class="glyphicon glyphicon-trash"></span> 
+                        </button>
+									</td>
+								</tr>
+							</tbody>
+						</table> 
+
+						<div>
+
+							<button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                    <span class="glyphicon glyphicon-upload"></span> Upload
+                </button>
+							<button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length")">
+                    <span class="glyphicon glyphicon-trash"></span> Remove
+                </button>
+						</div> -->
+							<div class="text-center">
+								<button type="button" class="btn btn-success btn-xs" (click)="UploadPicture(item)" [disabled]="item.isReady || item.isUploading || item.isSuccess || (item.file.type != 'image/png' && item.file.type !='image/jpeg') ">
+                            <span class="glyphicon glyphicon-upload"></span> Upload
+                        </button>
+								<button type="button" class="btn btn-danger btn-xs" (click)="cancleUpload(item)" (change)="cancleUpload()">
+                            <span class="glyphicon glyphicon-trash"></span> Remove
+                        </button>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="row">
+
+						<div class="col-md-12" *ngIf="imgUpload">
+							*ขนาดไม่เกิน 5MB เป็นต้น
+							<input type="file" class="form-control" ng2FileSelect [uploader]="uploader" (change)="changeUpload()" /><br/>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="modal-upload-bottom">
+				<!--<button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cancel</button>-->
+				<button type="button" class="btn btn-rounded" data-dismiss="modal">Done</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,31 @@
+<div class="box-typical box-typical-padding">
+
+
+	<article class="activity-line-item box-typical" *ngFor="let item of messageList; let i = index ">
+
+		<header class="activity-line-item-header">
+			<div class="activity-line-item-user">
+				<div class="activity-line-item-user-photo">
+					<a href="#">
+						<img src="{{libPath}}img/avatar-2-64.png" alt="">
+					</a>
+				</div>
+				<a href="#/notificationsDetail/{{item.topicId}}">
+					<span  *ngIf="item.statusMessage !='0' " ><div class="activity-line-item-user-name">{{item.createBy}}:{{item.createDateStr}}</div> <span class="label label-danger" style="float:right;">New</span></span>
+					<span  *ngIf="item.statusMessage =='0' " ><div class="activity-line-item-user-name">{{item.createBy}}:{{item.createDateStr}}</div></span>  
+					<div class="activity-line-item-user-status">{{item.messageDetail}}</div>
+				</a>
+			</div>
+		</header>
+
+	</article>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="text-center">
+				<span *ngFor="let item of page"> 
+					<a href="#/notificationsList" (click)="clickPage(item)">{{item}}</a>
+					</span>
+			</div>
+		</div>
+	</div>
+</div>

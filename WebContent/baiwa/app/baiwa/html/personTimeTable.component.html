@@ -1,0 +1,63 @@
+
+        <div class="box-typical box-typical-padding">
+            <div class="col-lg-2 col-md-2"></div>
+
+            <div class="col-lg-8 col-md-8">
+                <p class="text-center">ตารางสอนประจำปีการศึกษา {{acdemicyear}}</p>
+            </div>
+
+            <div class="col-lg-2 col-md-2">
+                <select  name="select"  class="form-control" [(ngModel)]="acdemicyear" (ngModelChange)="changYear($event)"  >
+							<option *ngFor="let a of year " [value]="a.name" >{{a.name}}</option>
+                            
+                            
+				</select>
+
+            </div>
+            <br>
+                <hr>
+                <p class="text-center">ภาคเรียนที่ 1</p>
+                <table id="DTable" [jquery-datatable]="makeDataTable" #personTimeTable="DataTableDirect" class="display table table-bordered table-striped" cellspacing="0" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>รหัสวิชา</th>
+                            <th>ชื่อวิชา</th>
+                            <th>ป/ท</th>
+                            <th>ชั่วโมง</th>
+                            <th>หน่วยกิต</th>
+                            <th>ระดับ</th>
+                            <th>จำนวนนักศึกษา</th>
+                            <th>section</th>
+                            <th>วัน</th>
+                            <th>หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <br>
+
+                <p class="text-center">ภาคเรียนที่ 2</p>
+                <table id="D2Table" [jquery-datatable]="makeDataTable2" #personTimeTable2="DataTableDirect" class="display table table-bordered table-striped" cellspacing="0" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>รหัสวิชา</th>
+                            <th>ชื่อวิชา</th>
+                            <th>ป/ท</th>
+                            <th>ชั่วโมง</th>
+                            <th>หน่วยกิต</th>
+                            <th>ระดับ</th>
+                            <th>จำนวนนักศึกษา</th>
+                            <th>section</th>
+                            <th>วัน</th>
+                            <th>หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+
+        </div>

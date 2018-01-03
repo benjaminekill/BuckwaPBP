@@ -1,0 +1,383 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 box-typical box-typical-padding">
+
+
+        <label for="exampleSelect" class="col-md-1 form-control-label">ปีการศึกษา</label>
+        <div class="col-md-1">
+            <select id="exampleSelect" class="form-control"  [(ngModel)]="currentAcademicYear" #academic (change)="changeYear(academic.value)" >
+			        <option *ngFor="let item of academicYearList;"  [value]="item.name"  >{{item.name}}</option>
+			</select>
+        </div>
+        <label for="exampleSelect2" class="col-md-1 form-control-label" *ngIf="evaluateRoundList">รอบ</label >      
+        <div class="col-md-1" *ngIf="evaluateRoundList">
+            <select id="exampleSelect2" class="form-control"  [(ngModel)]="evaluateRoundValue"  (ngModelChange)="changeRound()" >
+			        <option *ngFor="let item of evaluateRoundList;"  [value]="item.name"  >{{item.name}}</option>
+			</select>
+        </div>
+
+        <div class="col-sm-4 text-center ">สถานะ : <img width="25px" src="/PBP3/baiwa/libs/img/wait.png" /> รออนุมัติ &nbsp;<img width="25px" src="/PBP3/baiwa/libs/img/co_wait.png"
+            />&nbsp; รออนุมัติสอนร่วม &nbsp; <img width="25px" src="/PBP3/baiwa/libs/img/sucess.png" />&nbsp;อนุมัติ </div>
+        <div class="col-sm-4 text-center"><b>ช่องทาง</b>: A&nbsp;:นำเข้าอัตโนมัติจากสำนักทะเบียน&nbsp; M:นำเข้าเอง</div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <section class="box-typical">
+            <table id="table-edit" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th colspan="7">
+                            <div class="text-center">ผลงานประจำปี {{currentAcademicYear}}</div>
+                        </th>
+
+                    </tr>
+                    <tr>
+                        <th width="15%">
+                            <div class="text-center">ประเภทภาระงาน</div>
+                        </th>
+                        <th width="25%">
+                            <div class="text-center">งาน</div>
+                        </th>
+                        <th width="30%">
+                            <div class="text-center">ภาระงาน/คะแนน</div>
+                        </th>
+                        <th width="5%">
+                            <div class="text-center">ช่องทาง|<br>สถานะ</div>
+                        </th>
+                        <th width="5%">
+                            <div class="text-center"> สัดส่วน</div>
+                        </th>
+                        <th width="12%">
+                            <div class="text-center">คะแนน <br>ก่อนอนุมัติ | หลังอนุมัติ </div>
+                        </th>
+                        <th width="8%">
+                            <div class="text-center">รวม</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item1 of academyList; let i = index">
+                    <!--
+                    <tr *ngFor="let item of academyList; let i = index">
+                        <td style="vertical-align:top">&nbsp;{{i+1}}&nbsp;&nbsp;{{item.name}}</td>
+                         
+                        <td colspan="5" style="padding:0px ;">
+                            <table>
+                                <tbody>
+                                    <tr width="100%" *ngFor="let item of kpiuserList[i]; let j = index ">
+
+                                        <td width="23%">
+                                            <a href="#" data-toggle="modal" (click)="ClickGetPointKPI(item.academicKPIAttributeValueList[0].academicKPIMappingId,item.academicKPI.mark)"
+                                                data-target="#myModal" data-backdrop="static" data-keyboard="false">{{item.academicKPIAttributeValueList[0].value}}</a>
+                                        </td>
+                                        <td width="35%">{{item.name}} {{item.academicKPI.mark}} คะแนน / {{item.academicKPI.unitDesc}}</td>
+                                        <td width="12%">
+                                            <div class="text-center">{{item.fromSourceText}}&nbsp;|
+                                                <img width="25px" [hidden]="item.status !='APPROVED' " src="/PBP3/baiwa/libs/img/sucess.png" />
+                                                <img width="25px" [hidden]="item.status =='APPROVED' " src="/PBP3/baiwa/libs/img/wait.png" />
+                                            </div>
+                                        </td>
+                                        <td width="6%">
+                                            <div class="text-center">{{kpival[i][j]}}</div>
+                                        </td>
+                                        <td width="14%">
+                                            <div class="text-center">{{item.totalInMapping}}|<b><span style="color:green;">{{item.totalInMapping}}</span></b></div>
+                                        </td>
+                                    </tr>
+                                    <tbody>
+                            </table>
+                        </td>
+
+                        <td style="vertical-align:top">{{item.totalInWorkType}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">คะแนนรวม</td>
+                        <td> {{academy.totalMark}}</td>
+                    </tr>
+                    -->
+
+                        <tr width="100%" *ngFor="let item2 of kpiuserList[i]; let j = index ">
+                            <td [attr.rowspan]="kpiuserList[i].length" style="vertical-align:top" *ngIf="j==0">&nbsp;{{i+1}}&nbsp;&nbsp;{{item1.name}}</td>
+                            <td width="23%">
+                                <a href="#" data-toggle="modal" (click)="ClickGetPointKPI(item2.academicKPIAttributeValueList[0].academicKPIMappingId,item2.academicKPI.mark)"
+                                    data-target="#myModal" data-backdrop="static" data-keyboard="false">{{item2.academicKPIAttributeValueList[0].value}}</a>
+                            </td>
+                            <td width="35%">{{item2.name}} {{item2.academicKPI.mark}} คะแนน / {{item2.academicKPI.unitDesc}}</td>
+                            <td width="12%">
+                                <div class="text-center">{{item2.fromSourceText}}&nbsp;|
+                                    <img width="25px" [hidden]="item2.status !='APPROVED' " src="/PBP3/baiwa/libs/img/sucess.png" />
+                                    <img width="25px" [hidden]="item2.status !='CREATE_CO_TEACH' " src="/PBP3/baiwa/libs/img/co_wait.png" />
+                                    <img width="25px" [hidden]="item2.status !='CREATE' " src="/PBP3/baiwa/libs/img/wait.png" />
+                                </div>
+                            </td>
+                            <td width="6%">
+                                <div class="text-center">{{kpival[i][j]}}</div>
+                            </td>
+                            <td width="14%">
+                                <div class="text-center" [hidden]="item2.status !='APPROVED' " >{{item2.totalInMapping}}|<b><span style="color:green;">{{item2.totalInMapping}}</span></b></div>
+                                <div class="text-center"  [hidden]="item2.status =='APPROVED' " >{{item2.totalInMapping}}|<b><span style="color:red;">0.00</span></b></div>
+                            </td>
+                             <td [attr.rowspan]="kpiuserList[i].length" *ngIf="j==0" style="vertical-align:top">{{item1.totalInWorkType}}</td>
+                            
+
+
+                </tbody>
+            </table>
+            <br>
+            <div class="col-lg-12 col-md-12 box-typical box-typical-padding">
+                <div class="text-center">
+                    <h5 > ระดับคะแนน &nbsp;&nbsp; {{academy.totalMark}}</h5>
+                </div>
+            </div>
+
+        </section>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog " style=" width: 80%;">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">รายละเอียดการคำนวณภาระงานด้าน งานวิชาการ</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-lg-6  col-md-12">
+
+
+
+                            <div class="form-group row" style="margin-bottom: 2px;">
+                                <label class="col-sm-3 form-control-label">ชื่อภาระงาน:</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{pointKPI.name}}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group row" style="margin-bottom: 2px;">
+                                <label class="col-sm-3 form-control-label">คะแนน KPI:</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{mark}} คะแนน/ {{pointKPI.academicKPI.unitDesc}}</p>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row" style="margin-bottom: 2px;" *ngFor="let a of pointLPIList ">
+                                <label class="col-sm-3 form-control-label">{{a.name}}</label>
+                                <div class="col-sm-9" *ngIf="statusKpi " >
+
+                                    <p class="form-control-static"  ><input type="text" [ngModelOptions]="{standalone: true}" name="{{a.name}}" [(ngModel)]="a.value"
+                                            class="form-control" id="inputPassword" value="{{a.value}}" placeholder="{{a.name}}"
+                                            required="required" readOnly="true" ></p>
+
+                                </div>
+
+                               <div class="col-sm-9" *ngIf="!statusKpi && a.name != 'สัดส่วน(%)'  " >
+
+                        <p class="form-control-static"  ><input type="text" [ngModelOptions]="{standalone: true}" name="{{a.name}}" [(ngModel)]="a.value"
+                                            class="form-control" id="inputPassword" value="{{a.value}}" placeholder="{{a.name}}"
+                                            required="required" ></p>
+
+                                            
+                                </div>
+
+                                <div class="col-sm-9" *ngIf="!statusKpi && a.name == 'สัดส่วน(%)' " >
+            
+            <p class="form-control-static"><input type="number" [ngModelOptions]="{standalone: true}" name="{{a.name}}" max="100" min="0" [(ngModel)]="a.value" class="form-control" id="number" value="{{a.value}}"  name="number" placeholder="{{a.name}}" required="required" ></p>
+							<small class="text-muted" style="color: #fa424a;" >* กรอกค่าตัวเลข</small>
+
+                                            
+                                </div>
+                            </div>
+
+
+                                    
+
+                            <div class="form-group row" style="margin-bottom: 2px;">
+                                <label class="col-sm-3 form-control-label">ตัวคูณ</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{pointKPI.calResultStr}}</p>
+                                </div>
+                            </div>
+
+				<div class="form-group row" style="margin-bottom: 2px;" *ngIf="!statusKpi">
+						<label class="col-sm-3 form-control-label"></label>
+						<div class="col-sm-9 text-center ">
+								
+							<button  type="submit" class="btn " (click)=" clickedEditImport()" >บันทึก</button>
+                            <button  type="submit" class="btn  btn-danger" (click)=" clickedDeteleImport()" >ลบ</button>
+						</div>
+					</div>
+
+
+                        </div>
+                        <div class="col-lg-6  col-md-12">
+                            <!-- <h5 class="m-t-lg with-border"> แนบเอกสารประกอบการพิจารณา :</h5> -->
+
+
+                            <div class="col-md-12">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+
+                                        <h5 style="margin-bottom: 1rem;"> แนบเอกสารประกอบการพิจารณา :</h5>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50%">
+                                                        <div class="text-center">Name</div>
+                                                    </th>
+
+                                                    <th>
+                                                        <div class="text-center"></div>
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr [hidden]="chFilework == ture" *ngFor="let item of fileWork">
+
+                                                    <td width="70%"><strong><a href="../person/downloadAttachFile/{{item.attachFileId}}">{{item.fileName}}</a></strong></td>
+
+                                                    <td nowrap width="30%">
+                                                        <button type="button" class="btn btn-danger btn-xs" (click)="deleteFile(item.attachFileId,item.fileName)">
+                                                        <span class="glyphicon glyphicon-trash"></span> 
+                                                    </button>
+                                                    </td>
+
+                                                </tr>
+                                                <tr [hidden]="chFilework == false">
+                                                    <td colspan="3" class="text-center">ไม่มีเอกสารแนบ</td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                        <hr>
+                                        <div *ngIf="!statusKpi">
+                                            <h5 style="padding-bottom: 11px;">เพิ่มเอกสารแบบ</h5>
+
+                                            <input type="file" class="form-control" ng2FileSelect [uploader]="uploader" multiple /><br/>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <table class="table" *ngIf="!statusKpi">
+                                    <thead>
+                                        <tr>
+                                            <th width="50%">
+                                                <div class="text-center">Name</div>
+                                            </th>
+                                            <th>Status</th>
+                                            <th>Progress</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of uploader.queue">
+                                            <td><strong>{{ item?.file?.name }}</strong></td>
+                                            <td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                                            <td *ngIf="uploader.isHTML5">
+                                                <div class="progress" style="margin-bottom: 0;">
+                                                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                                <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                                <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                            </td>
+                                            <td nowrap>
+                                                <button type="button" class="btn btn-success btn-xs" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                                                        <span class="glyphicon glyphicon-upload"></span> 
+                                                    </button>
+                                                <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+                                                        <span class="glyphicon glyphicon-trash"></span> 
+                                                    </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+
+                                <div *ngIf="!statusKpi">
+
+                                    <button type="button" class="btn btn-success btn-s" (click)="uploadFileAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                    <span class="glyphicon glyphicon-upload"></span> Upload all
+                </button>
+                                    <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                    <span class="glyphicon glyphicon-trash"></span> Remove all
+                </button>
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                        <div class="row"  *ngIf="!statusKpi" >
+                            <div class="col-md-12">
+                                <div class="line"></div>
+                                <h5 style="    margin-bottom: 10px;"> ข้อความ :</h5>
+
+                                <section class="chat-area">
+                                    <div class="chat-dialog-area scrollable-block">
+
+                                        <div class="chat-message" *ngFor="let item of messageList" >
+                                           
+                                            <div class="chat-message-photo">
+                                                <img src="/PBP3/baiwa/libs/img/avatar-2-64.png" alt="">
+                                            </div>
+                                            <div class="chat-message-header">
+                                                <div class="tbl-row">
+                                                    <div class="tbl-cell tbl-cell-name">{{item.createBy}}</div>
+                                                    <div class="tbl-cell tbl-cell-date">{{item.createDateTimeStr}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="chat-message-content">
+                                                <div class="chat-message-txt">{{item.messageDetail}}</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--.chat-dialog-area-->
+
+                                </section>
+                                <!--.chat-area-->
+
+                                <div class="chat-area-bottom">
+                                    <form class="write-message">
+                                        <div class="form-group">
+                                            <textarea rows="1" [(ngModel)]="replyMessage" name="replyMessage" class="form-control" placeholder="Type a message" ></textarea>
+                                            <button type="submit" (click)="sentReplyPBPMessage()" class="btn btn-rounded">ส่ง</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!--.chat-area-bottom-->
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-upload-bottom">
+                    <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,144 @@
+<div style="width: 100%">
+    <div class="col-md-4 col-lg-12">
+        <section id="blockui-element-container-dark" class="card">
+            <div class="card-block display-table" style="min-height: auto">
+                <section class="card card-default">
+                    <header class="card-header" style="text-align: center"><i class="glyphicon glyphicon-th-list"></i> ข้อมูลประเภทภาระงาน คณะ {{facultyName}} ประจำปีการศึกษา {{academicYear}} 
+                    </header>
+                    <div class="card-block">
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">ประจำปี :</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" [(ngModel)]="searchAtti.academicYear" >
+                        <option *ngFor="let item of academicYearList;" [value]="item.name" >{{item.name}}</option>
+                                </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="form-group ">
+                                    <label for="inputPassword3" class="col-sm-2 control-label">ภาระงานด้าน :</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control"  [(ngModel)]="searchAtti.workTypeCode" >
+                               <option *ngFor="let item of pBPWorkTypeList;" [value]="item.code" >{{item.name}}</option>
+                                </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">คณะ :</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" [(ngModel)]="searchAtti.facultyCode" >
+                                <option *ngFor="let item of facultyList;" [value]="item.code" >{{item.name}}</option>
+
+                                </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-inline btn-info" (click)="GetSearchKpI();">ค้นหา</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </section>
+            </div>
+
+            <div class="card-block display-table" style="min-height: auto">
+                <section class="card card-default">
+                    <header class="card-header" style="text-align: center"><i class="font-icon font-icon-notebook"></i> ภาระงานด้าน {{workTypeName}}
+                    </header>
+                    <br>
+                    <div class="form-group" style="width: 99%; text-align: right">
+                        <a class="btn btn-inline btn-primary" (click)="GetCreateKPI();" role="button" *ngIf="academicYearSelect==academicYear" >เพิ่มภาระงาน  </a>
+                    </div>
+                    <div class="card-block">
+                        <table id="table-edit" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ภาระงาน
+                                        <div class="fa-hover col-md-3 col-md-offset-2"></div>
+                                    </th>
+                                    <th>คะแนน
+                                        <div class="fa-hover col-md-3 col-md-offset-2"></div>
+                                    </th>
+                                    <th   >Remark
+                                        <div class="fa-hover col-md-3 col-md-offset-2"></div>
+                                    </th>
+                                    <th *ngIf=" academicYearSelect == academicYear ">แก้ไข
+                                        <div class="fa-hover col-md-3 col-md-offset-2"></div>
+                                    </th>
+                                    <th  *ngIf=" academicYearSelect == academicYear " >ลบ
+                                        <div class="fa-hover col-md-3 col-md-offset-2"></div>
+                                    </th>
+                                    <th>ลำดับการจัดเรียง
+                                        <div class="fa-hover col-md-3 col-md-offset-2"></div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of academicKPIList;">
+                                    <td>
+
+                                        {{item.name}}
+                                    </td>
+                                    <td>
+
+
+                                        {{item.mark}} คะแนน/ {{item.unitDesc}}
+
+
+
+                                    </td>
+                                    <td  >
+
+                                        <div *ngIf="item.fromRegis != 'Y' " style='width: 150px;'>
+                                            {{item.description}}
+                                        </div>
+                                        <div *ngIf="item.fromRegis == 'Y' ">
+                                            นำเข้าจากสำนักทะเบียน
+                                        </div>
+
+
+                                    </td>
+                                    <td *ngIf="academicYearSelect==academicYear">
+
+                                        <a class="btn btn-inline btn-warning font-icon font-icon-cogwheel" (click)="GetUpdateKPI(item.academicKPIId);" role="button"></a>
+
+                                    </td>
+                                    <td *ngIf="academicYearSelect==academicYear" >
+
+                                        <a class="btn btn-inline btn-danger font-icon font-icon-trash" (click)="GetDeleteKPI(item.academicKPIId);" role="button"></a>
+
+                                    </td>
+                                    <td>
+
+                                        {{item.orderNo}}
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+</div>
